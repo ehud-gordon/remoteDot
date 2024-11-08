@@ -126,20 +126,20 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[0
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/ehud/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/ehud.gordon/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/ehud/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/ehud/miniforge3/etc/profile.d/conda.sh"
+    if [ -f "/home/ehud.gordon/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/ehud.gordon/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/ehud/miniforge3/bin:$PATH"
+        export PATH="/home/ehud.gordon/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 
-if [ -f "/home/ehud/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/home/ehud/miniforge3/etc/profile.d/mamba.sh"
+if [ -f "/home/ehud.gordon/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "/home/ehud.gordon/miniforge3/etc/profile.d/mamba.sh"
 fi
 conda deactivate
 conda deactivate
