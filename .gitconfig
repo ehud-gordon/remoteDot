@@ -1,0 +1,9 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+        name = Ehud Gordon
+        email = ehud.gordon@campus.technion.ac.il
+[init]
+        defaultBranch = master
+[alias]
+  acp = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
