@@ -40,6 +40,13 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+# copy-path: copy $1 (or $PWD if no arg) to the clipboard
+copy-path() {
+  local dir="${1:-$PWD}"            # default to current directory
+  local abs="$(realpath "$dir")"    # resolve symlinks, get absolute path
+  printf '%s' "$abs" | xclip -selection clipboard  # X11
+}
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -91,7 +98,7 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
+alias vim='nvim'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -105,10 +112,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -119,10 +122,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# add git_branch to PS1
-source ~/.git-prompt.sh
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\033[0;32m$(__git_ps1 " (%s)")\033[0m\$ '
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -137,14 +136,42 @@ else
     fi
 fi
 unset __conda_setup
-
-if [ -f "/home/ehud.gordon/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/home/ehud.gordon/miniforge3/etc/profile.d/mamba.sh"
-fi
-conda deactivate
-conda deactivate
-conda deactivate
 # <<< conda initialize <<<
+conda deactivate
+conda deactivate
+conda deactivate
+
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba shell init' !!
+export MAMBA_EXE='/home/ehud.gordon/miniforge3/bin/mamba';
+export MAMBA_ROOT_PREFIX='/home/ehud.gordon/miniforge3';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+
+# Add Claude CLI to PATH
+export PATH="$HOME/.local/bin:$PATH"
+
 clp() {
-    echo -n "$1" | command xclip -selection clipboard
+    local text
+    if [ $# -gt 0 ]; then
+        text="$*"
+    elif [ ! -t 0 ]; then
+        # stdin is piped
+        text="$(cat)"
+    else
+        text="$PWD"
+    fi
+    printf '%s' "$text" | xclip -sel clipboard
 }
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

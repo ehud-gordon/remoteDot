@@ -7,3 +7,6 @@
         defaultBranch = master
 [alias]
   acp = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
+	ac = !git add -A && git commit -m
+[credential]
+	helper = store
