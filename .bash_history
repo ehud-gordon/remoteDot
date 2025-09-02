@@ -1,6 +1,3 @@
-find . -maxdepth 2 -type f -name "*.md" -o -name "*.yaml" | sort
-rm REORGANIZATION_SUMMARY.md
-conda activate pytorch_env
 /home/ehud.gordon/miniforge3/envs/pytorch_env/bin/python /home/ehud.gordon/clip_clean/src/main.py
 pip list | grep "clip"
 clip-clean --help
@@ -1998,3 +1995,6 @@ cd ~/data/
 ll
 ll claude
 md claude
+ll .gitignore
+vim .gitignore
+vim .gitignore 

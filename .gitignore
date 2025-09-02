@@ -1,3 +1,5 @@
+*stam*
+*stam*/
 /.bash_logout
 /.bash_history/
 /.cache
@@ -34,3 +36,10 @@
 /.Xauthority*
 /.xsession*
 /.mycfg/
+/Gaussian*/
+/gaussian*/
+/FLAME*/
+/.yarn*
+/VHAP/
+/packages.txt/
+
